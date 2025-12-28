@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="header-section">
+    <h1>People Management</h1>
+    <button class="btn btn-primary" (click)="addNewPerson()">Add New Person</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading people...
+  </div>
+
+  <div *ngIf="!loading && people.length === 0 && !errorMessage" class="empty-state">
+    <p>No people found. Click "Add New Person" to get started.</p>
+  </div>
+
+  <table *ngIf="!loading && people.length > 0" class="people-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let person of people">
+        <td>{{ person.id }}</td>
+        <td>{{ person.name }}</td>
+        <td>{{ person.email }}</td>
+        <td>{{ person.phone || 'N/A' }}</td>
+        <td>{{ person.age || 'N/A' }}</td>
+        <td>{{ person.address || 'N/A' }}</td>
+        <td class="actions">
+          <button class="btn btn-primary btn-sm" (click)="editPerson(person.id!)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deletePerson(person.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
